@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { AlertifyService } from '../_Services/alertify.service';
 import { AuthService } from '../_Services/auth.service';
 
 @Component({
@@ -10,16 +10,15 @@ import { AuthService } from '../_Services/auth.service';
 export class RegisterComponent implements OnInit {
   model:any = {};
   @Input() ValueFromHome :any;
-  constructor(private authService : AuthService) { }
+  constructor(private authService : AuthService , private alertService : AlertifyService) { }
 
   ngOnInit() {
   }
 
   register(){
     this.authService.register(this.model).subscribe((response) =>{
-      console.log('register successfull');
-    },error =>{console.log(error)});
-    console.log(this.model);
+      this.alertService.success('register successfull');
+    },error =>{this.alertService.error(error)});
   }
 
   cancel(){
