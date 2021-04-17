@@ -16,15 +16,23 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { ErrorInterceptorProvider } from './_Services/error.interceptor';
 import { AlertifyService } from './_Services/alertify.service';
+import { ListsComponent } from './Lists/Lists.component';
+import { MessagesComponent } from './Messages/Messages.component';
+import { MemberListComponent } from './MemberList/MemberList.component';
+import { RouterModule } from '@angular/router';
+import { appRoute } from './route';
 
 
 @NgModule({
-  declarations: [				
+  declarations: [							
     AppComponent,
       ValueComponent,
       NavComponent,
       HomeComponent,
-      RegisterComponent
+      RegisterComponent,
+      ListsComponent,
+      MessagesComponent,
+      MemberListComponent
    ],
   imports: [
     BrowserModule,
@@ -32,7 +40,8 @@ import { AlertifyService } from './_Services/alertify.service';
     FormsModule,
     BrowserAnimationsModule,
     NgxFontAwesomeModule,
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    RouterModule.forRoot(appRoute)
 
   ],
   providers: [AuthService,
