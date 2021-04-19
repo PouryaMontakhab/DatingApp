@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 namespace DatingApp.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
         private readonly IAuthRepository _authRepo;
