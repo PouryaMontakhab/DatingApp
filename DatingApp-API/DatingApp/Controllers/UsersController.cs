@@ -32,6 +32,8 @@ namespace DatingApp.Controllers
         public async Task<IActionResult> GetUsers()
         {
             var users = await _datingAppRepository.GetUsers();
+
+            //Use automapper case 
             var userToReturn = _mapper.Map<IEnumerable<UserForList>>(users);
             return Ok(userToReturn);
         }

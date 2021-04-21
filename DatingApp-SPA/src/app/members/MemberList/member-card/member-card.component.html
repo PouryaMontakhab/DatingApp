@@ -1,0 +1,29 @@
+<div class="card mb-4" >
+  <div class="card-img-wrapper">
+      <img src="{{user.photoUrl}}" class="card-img-top" alt="{{user.knownAs}}">
+      <ul class="list-inline member-icons animate text-center">
+        <li class="list-inline-item">
+          <button class="btn tbn-primary btn-sm" [routerLink]="['/members/', user.id]">
+            <ngx-fa name="user" size="lg"></ngx-fa>
+          </button>
+        </li>
+        <li class="list-inline-item">
+          <button class="btn tbn-primary btn-sm">
+            <ngx-fa name="heart" size="lg"></ngx-fa>
+          </button>
+        </li>
+        <li class="list-inline-item">
+          <button class="btn tbn-primary btn-sm">
+            <ngx-fa name="envelope" size="lg"></ngx-fa>
+          </button>
+        </li>
+      </ul>
+  </div>
+  <div class="card-body p-1">
+    <h5 class="card-title text-center mb-1">
+      <ngx-fa name="user" size="lg"></ngx-fa>
+      {{user.username}} , {{user.age}}
+    </h5>
+    <p class="card-text text-muted text-center">{{user.city}}</p>
+  </div>
+</div>

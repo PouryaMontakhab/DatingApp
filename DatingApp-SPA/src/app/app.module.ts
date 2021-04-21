@@ -4,6 +4,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { NgxFontAwesomeModule } from 'ngx-font-awesome';
+import {TabsModule} from 'ngx-bootstrap/tabs';
 
 
 
@@ -18,9 +19,19 @@ import { ErrorInterceptorProvider } from './_Services/error.interceptor';
 import { AlertifyService } from './_Services/alertify.service';
 import { ListsComponent } from './Lists/Lists.component';
 import { MessagesComponent } from './Messages/Messages.component';
-import { MemberListComponent } from './MemberList/MemberList.component';
+import { MemberListComponent } from './members/MemberList/MemberList.component';
 import { RouterModule } from '@angular/router';
 import { appRoute } from './route';
+import { MemberCardComponent } from './members/MemberList/member-card/member-card.component';
+import { JwtModule } from '@auth0/angular-jwt';
+import { MemberDetailComponent } from './members/MemberList/member-detail/member-detail.component';
+import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
+import { MemberListResolver } from './_resolvers/member-list.resolver';
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+
+export function tokenGetter(){
+  return localStorage.getItem('token');
+}
 
 
 @NgModule({
@@ -32,7 +43,9 @@ import { appRoute } from './route';
       RegisterComponent,
       ListsComponent,
       MessagesComponent,
-      MemberListComponent
+      MemberListComponent,
+      MemberCardComponent,
+      MemberDetailComponent
    ],
   imports: [
     BrowserModule,
@@ -40,13 +53,24 @@ import { appRoute } from './route';
     FormsModule,
     BrowserAnimationsModule,
     NgxFontAwesomeModule,
+    NgxGalleryModule,
     BsDropdownModule.forRoot(),
-    RouterModule.forRoot(appRoute)
+    TabsModule.forRoot(),
+    RouterModule.forRoot(appRoute),
+    JwtModule.forRoot({
+      config : {
+        tokenGetter : tokenGetter,
+        whitelistedDomains :['localhost:5000'],
+        blacklistedRoutes : ['localhost:5000/api/auth']
+      }
+    })
 
   ],
   providers: [AuthService,
               AlertifyService,
-              ErrorInterceptorProvider],
+              ErrorInterceptorProvider,
+              MemberDetailResolver,
+              MemberListResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

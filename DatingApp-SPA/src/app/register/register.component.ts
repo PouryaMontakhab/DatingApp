@@ -10,7 +10,7 @@ import { AuthService } from '../_Services/auth.service';
 export class RegisterComponent implements OnInit {
   model:any = {};
   @Input() ValueFromHome :any;
-  constructor(private authService : AuthService , private alertService : AlertifyService) { }
+  constructor(public authService : AuthService , private alertService : AlertifyService) { }
 
   ngOnInit() {
   }
