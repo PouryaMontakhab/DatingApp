@@ -28,7 +28,7 @@
           Wellcome {{authService.decodedToken?.name | titlecase}}
         </button>
         <div class="dropdown-menu" *dropdownMenu >
-          <a class="dropdown-item" >
+          <a class="dropdown-item"  [routerLink]="['/member/edit']">
             <ngx-fa name="user" size="lg"></ngx-fa>
             Edit Profile</a>
           <a class="dropdown-devider"></a>
