@@ -14,7 +14,7 @@ namespace DatingApp.Controllers
     [ApiController]
     [Authorize]
     [Route("api/[controller]")]
-    public class UsersController : ControllerBase
+    public partial class UsersController : ControllerBase
     {
         private readonly IDatingAppRepository _datingAppRepository;
         private readonly IConfiguration _configuration;
@@ -31,7 +31,7 @@ namespace DatingApp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetUsers()
+        public async virtual Task<IActionResult> GetUsers()
         {
             var users = await _datingAppRepository.GetUsers();
 
@@ -41,7 +41,7 @@ namespace DatingApp.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUser(int id)
+        public async virtual Task<IActionResult> GetUser(int id)
         {
             var user = await _datingAppRepository.GetUser(id);
             var userToReturn = _mapper.Map<UserForDetailed>(user);
@@ -49,7 +49,7 @@ namespace DatingApp.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(int id , UserForUpdate user)
+        public async virtual Task<IActionResult> UpdateUser(int id , UserForUpdate user)
         {
             if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();

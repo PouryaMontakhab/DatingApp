@@ -1,3 +1,4 @@
+using AutoMapper;
 using DatingApp.Data;
 using DatingApp.Dtos;
 using DatingApp.Models;
@@ -18,21 +19,24 @@ namespace DatingApp.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class AuthController : ControllerBase
+    public partial class AuthController : ControllerBase
     {
         private readonly IAuthRepository _authRepo;
         private readonly IConfiguration _configuration;
+        private readonly IMapper _mapper;
 
         public AuthController(
             IAuthRepository authRepo,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            IMapper mapper)
         {
             _authRepo = authRepo;
             _configuration = configuration;
+            _mapper = mapper;
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(UserRegisteration user)
+        public async virtual Task<IActionResult> Register(UserRegisteration user)
         {
 
             if (string.IsNullOrEmpty(user.username) || string.IsNullOrEmpty(user.password))
@@ -56,7 +60,7 @@ namespace DatingApp.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(UserLogin user)
+        public async virtual Task<IActionResult> Login(UserLogin user)
         {
             if (string.IsNullOrEmpty(user.username) || string.IsNullOrEmpty(user.password)) return BadRequest("username or password can not be empty");
             var userItem = await _authRepo.Login(user.username.ToLower(), user.password);
@@ -81,9 +85,12 @@ namespace DatingApp.Controllers
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
+            var userToken = _mapper.Map<UserForList>(userItem);
+
             return Ok(new
             {
-                token = tokenHandler.WriteToken(token)
+                token = tokenHandler.WriteToken(token),
+                userToken
             });
 
 

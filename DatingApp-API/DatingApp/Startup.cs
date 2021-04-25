@@ -36,9 +36,11 @@ namespace DatingApp
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
-            services.AddDbContext<DataContext>(option => option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            ); services.AddDbContext<DataContext>(option => option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddAutoMapper(typeof(DatingAppRepository).Assembly);
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IDatingAppRepository, DatingAppRepository>();
 

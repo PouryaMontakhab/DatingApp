@@ -1,8 +1,8 @@
 import { Routes } from "@angular/router";
 import { HomeComponent } from "./home/home.component";
 import { ListsComponent } from "./Lists/Lists.component";
-import { MemberDetailComponent } from "./members/MemberList/member-detail/member-detail.component";
-import { MemberEditComponent } from "./members/MemberList/member-edit/member-edit.component";
+import { MemberDetailComponent } from "./members/member-detail/member-detail.component";
+import { MemberEditComponent } from "./members/member-edit/member-edit.component";
 import { MemberListComponent } from "./members/MemberList/MemberList.component";
 import { MessagesComponent } from "./Messages/Messages.component";
 import { AuthGuard } from "./_guards/auth.guard";

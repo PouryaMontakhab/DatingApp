@@ -13,7 +13,7 @@ namespace DatingApp.Controllers
     [Authorize]
     [ApiController]
     [Route("api/[controller]")]
-    public class ValuesController : ControllerBase
+    public partial class ValuesController : ControllerBase
     {
 
 
@@ -30,7 +30,7 @@ namespace DatingApp.Controllers
         [HttpGet]
         [AllowAnonymous]
 
-        public async Task<IActionResult> Get()
+        public async virtual Task<IActionResult> Get()
         {
             var values = await _context.Values.ToListAsync();
             return Ok(values);
@@ -38,7 +38,7 @@ namespace DatingApp.Controllers
 
         [HttpGet("{id}")]
         [AllowAnonymous]
-        public async Task<IActionResult> Get(int id)
+        public async virtual Task<IActionResult> Get(int id)
         {
             var value = await _context.Values.FirstOrDefaultAsync(v=>v.Id == id);
             return Ok(value);

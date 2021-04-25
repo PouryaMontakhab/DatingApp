@@ -22,15 +22,17 @@ import { MessagesComponent } from './Messages/Messages.component';
 import { MemberListComponent } from './members/MemberList/MemberList.component';
 import { RouterModule } from '@angular/router';
 import { appRoute } from './route';
-import { MemberCardComponent } from './members/MemberList/member-card/member-card.component';
 import { JwtModule } from '@auth0/angular-jwt';
-import { MemberDetailComponent } from './members/MemberList/member-detail/member-detail.component';
+import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
 import { MemberListResolver } from './_resolvers/member-list.resolver';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
-import { MemberEditComponent } from './members/MemberList/member-edit/member-edit.component';
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { PreventUnsavedChanges } from './_guards/member-edit.guard';
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
+import { MemberCardComponent } from './members/member-card/member-card.component';
+import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
+import { FileUploadModule } from 'ng2-file-upload';
 
 export function tokenGetter(){
   return localStorage.getItem('token');
@@ -49,7 +51,8 @@ export function tokenGetter(){
       MemberListComponent,
       MemberCardComponent,
       MemberDetailComponent,
-      MemberEditComponent
+      MemberEditComponent,
+      PhotoEditorComponent,
    ],
   imports: [
     BrowserModule,
@@ -58,6 +61,7 @@ export function tokenGetter(){
     BrowserAnimationsModule,
     NgxFontAwesomeModule,
     NgxGalleryModule,
+    FileUploadModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     RouterModule.forRoot(appRoute),
