@@ -11,7 +11,7 @@ import {TabsModule} from 'ngx-bootstrap/tabs';
 import { AppComponent } from './app.component';
 import { ValueComponent } from './Value/Value.component';
 import { NavComponent } from './nav/nav.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './_Services/auth.service';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
@@ -33,6 +33,9 @@ import { MemberEditComponent } from './members/member-edit/member-edit.component
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 import { FileUploadModule } from 'ng2-file-upload';
+import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+
 
 export function tokenGetter(){
   return localStorage.getItem('token');
@@ -58,10 +61,13 @@ export function tokenGetter(){
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    RxReactiveFormsModule,
     NgxFontAwesomeModule,
     NgxGalleryModule,
     FileUploadModule,
+    BrowserAnimationsModule,
+    BsDatepickerModule.forRoot(),
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     RouterModule.forRoot(appRoute),

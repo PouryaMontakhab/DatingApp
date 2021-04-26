@@ -26,7 +26,7 @@
       <div class="btn-group" >
         <button type="button" class="btn btn-secondary dropdown-toggle" dropdownToggle >
           <span class="mr-1">
-            <img src="{{this.photoUrl}}" class="rounded-circle" alt="">
+            <img src="{{this.photoUrl || '../../../../assets/man.png'}}" class="rounded-circle" alt="">
           </span>
           Wellcome {{authService.decodedToken?.name | titlecase}}
         </button>

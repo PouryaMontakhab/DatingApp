@@ -62,6 +62,11 @@ constructor (private authService : AuthService , private userService : UserServi
         isMain:res.isMain
       }
       this.photos.push(photo);
+      if(photo.isMain){
+        this.authService.changeMemberPhoto(photo.url);
+        this.authService.currentUser.photoUrl = photo.url;
+        localStorage.setItem('user',JSON.stringify(this.authService.currentUser));
+      }
     }
   }
   this.uploader.response.subscribe( res => this.response = res );
