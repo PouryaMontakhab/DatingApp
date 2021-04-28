@@ -36,6 +36,10 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TimeagoModule } from 'ngx-timeago';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
+
+
 
 
 export function tokenGetter(){
@@ -68,6 +72,8 @@ export function tokenGetter(){
     NgxGalleryModule,
     FileUploadModule,
     BrowserAnimationsModule,
+    ButtonsModule.forRoot(),
+    PaginationModule.forRoot(),
     BsDatepickerModule.forRoot(),
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),

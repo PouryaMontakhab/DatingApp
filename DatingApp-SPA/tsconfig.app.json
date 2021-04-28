@@ -11,8 +11,9 @@
   ],
   "include": [
     "src/**/*.d.ts"
-  ],
-  "angularCompilerOptions": {
-    "enableIvy": false
-  },
+  ]
+  // ,
+  // "angularCompilerOptions": {
+  //   "enableIvy": false
+  // },
 }

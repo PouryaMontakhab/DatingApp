@@ -1,9 +1,12 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import {Observable} from 'rxjs';
 import { User } from '../_models/user';
 import { Photo } from '../_models/Photo';
+import { PaginatedResult } from '../_models/Pagination';
+import { map } from 'rxjs/operators';
+import { json } from '@rxweb/reactive-form-validators';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +18,32 @@ export class UserService {
 
 constructor(private http:HttpClient) { }
 
-getUsers():Observable<User[]>{
-return this.http.get<User[]>(this.baseUrl + 'users' );
+getUsers(page?,itemsPerPage? ,userparams?):Observable<PaginatedResult<User[]>>{
+
+  const paginatedResult : PaginatedResult<User[]> = new PaginatedResult<User[]>();
+  let params = new HttpParams();
+  if(page != null && itemsPerPage != null){
+    params = params.append('pageNumber', page);
+    params = params.append('pageSize',itemsPerPage);
+  }
+  if(userparams != null){
+    params = params.append('minAge' , userparams.minAge);
+    params = params.append('maxAge' , userparams.maxAge);
+    params = params.append('gender' , userparams.gender);
+    params = params.append('orderBy' , userparams.orderBy);
+  }
+  
+
+return this.http.get<User[]>(this.baseUrl + 'users' , {observe : 'response' , params})
+.pipe(
+  map(response => {
+    paginatedResult.result = response.body ; 
+    if(response.headers.get('Pagination') != null){
+      paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'))
+    }
+    return paginatedResult;
+  })
+);
 }
 
 getUser(id):Observable<User>{

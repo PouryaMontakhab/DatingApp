@@ -33,12 +33,21 @@ namespace DatingApp.Controllers
         }
 
         [HttpGet]
-        public async virtual Task<IActionResult> GetUsers()
+        public async virtual Task<IActionResult> GetUsers([FromQuery]UserFilterParams userFilterParams)
         {
-            var users = await _datingAppRepository.GetUsers();
+
+            var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var userItem = await _datingAppRepository.GetUser(currentUserId);
+            userFilterParams.UserId = userItem.Id;
+            if (string.IsNullOrEmpty(userFilterParams.Gender))
+                userFilterParams.Gender = userItem.Gender == "male" ? "female" : "male";
+
+            var users = await _datingAppRepository.GetUsers(userFilterParams);
+            
 
             //Use automapper case 
             var userToReturn = _mapper.Map<IEnumerable<UserForList>>(users);
+            Response.AddPagination(users.CurrentPage, users.PageSize, users.TotalPages, users.TotalCount);
             return Ok(userToReturn);
         }
 

@@ -1,4 +1,5 @@
-﻿using DatingApp.Models;
+﻿using DatingApp.Helper;
+using DatingApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace DatingApp.Data
     {
         void Add<T>(T entity) where T : class;
         void Delete<T>(T entity) where T : class;
-        Task<IEnumerable<User>> GetUsers();
+        Task<PagedList<User>> GetUsers(UserFilterParams userFilterParams);
         Task<Photo> GetPhoto(int id);
         Task<User> GetUser(int id);
         Task<bool> SaveAll();
