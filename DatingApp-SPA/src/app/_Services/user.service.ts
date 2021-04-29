@@ -6,7 +6,6 @@ import { User } from '../_models/user';
 import { Photo } from '../_models/Photo';
 import { PaginatedResult } from '../_models/Pagination';
 import { map } from 'rxjs/operators';
-import { json } from '@rxweb/reactive-form-validators';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +17,7 @@ export class UserService {
 
 constructor(private http:HttpClient) { }
 
-getUsers(page?,itemsPerPage? ,userparams?):Observable<PaginatedResult<User[]>>{
+getUsers(page?,itemsPerPage? ,userparams? , likeParams?):Observable<PaginatedResult<User[]>>{
 
   const paginatedResult : PaginatedResult<User[]> = new PaginatedResult<User[]>();
   let params = new HttpParams();
@@ -32,7 +31,12 @@ getUsers(page?,itemsPerPage? ,userparams?):Observable<PaginatedResult<User[]>>{
     params = params.append('gender' , userparams.gender);
     params = params.append('orderBy' , userparams.orderBy);
   }
-  
+  if(likeParams === 'liker'){
+    params = params.append('liker' , 'true');
+  }
+  if(likeParams === 'likee'){
+    params = params.append('likee' , 'true');
+  }
 
 return this.http.get<User[]>(this.baseUrl + 'users' , {observe : 'response' , params})
 .pipe(
@@ -60,6 +64,10 @@ setMainPhoto(userId: number , id:number){
 
 deletePhoto(userId:number , id:number){
   return this.http.delete(this.baseUrl + 'users/' + userId + '/photos/' + id);
+}
+
+sendLike(id:number , recipientId :number){
+  return this.http.post(this.baseUrl + 'users/' + id + '/like/' + recipientId ,{});
 }
 
 }
