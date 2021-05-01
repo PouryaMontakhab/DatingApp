@@ -14,6 +14,9 @@ namespace DatingApp.Data
         Task<PagedList<User>> GetUsers(UserFilterParams userFilterParams);
         Task<Like> GetLike(int userId, int recipientId);
         Task<Photo> GetPhoto(int id);
+        Task<Message> GetMessage(int id);
+        Task<PagedList<Message>> GetMessagesForUser(int userId ,MessageParams messageParams);
+        Task<IEnumerable<Message>> GetMessageThread(int userId, int recipientId); 
         Task<User> GetUser(int id);
         Task<bool> SaveAll();
 

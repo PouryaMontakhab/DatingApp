@@ -13,7 +13,7 @@
           </button>
         </li>
         <li class="list-inline-item">
-          <button class="btn tbn-primary btn-sm">
+          <button class="btn tbn-primary btn-sm" [routerLink]="['/members/',user.id]" [queryParams]="{tab:3}" >
             <ngx-fa name="envelope" size="lg"></ngx-fa>
           </button>
         </li>

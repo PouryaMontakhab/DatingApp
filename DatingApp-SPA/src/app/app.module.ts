@@ -39,6 +39,9 @@ import { TimeagoModule } from 'ngx-timeago';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { listsResolver } from './_resolvers/lists.resolver';
+import { MessagesResolver } from './_resolvers/messages.resolver';
+import { MemberMessageComponent } from './members/member-message/member-message.component';
+
 
 
 
@@ -62,6 +65,7 @@ export function tokenGetter(){
       MemberDetailComponent,
       MemberEditComponent,
       PhotoEditorComponent,
+      MemberMessageComponent
    ],
   imports: [
     BrowserModule,
@@ -96,7 +100,8 @@ export function tokenGetter(){
               MemberDetailResolver,
               MemberListResolver,
               MemberEditResolver,
-              listsResolver
+              listsResolver,
+              MessagesResolver
             ],
   bootstrap: [AppComponent]
 })
